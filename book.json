@@ -1,0 +1,32 @@
+{
+"title": "深入理解javascript原型和闭包",
+"description": "深入理解javascript原型和闭包",
+"author": "wiliam",
+"output.name": "site",
+"language": "zh-hans",
+"gitbook": "2.6.7",
+"root": ".",
+"structure": {
+"readme": "README.md"
+},
+"links": {
+"sidebar": {
+"个人主页": "http://wiliam.top"
+}
+},
+"sharing": {
+"weibo": true,
+"facebook": false,
+"twitter": false,
+"google": false,
+"instapaper": false,
+"vk": false,
+"all": [
+"facebook",
+"google",
+"twitter",
+"weibo",
+"instapaper"
+]
+}
+}
