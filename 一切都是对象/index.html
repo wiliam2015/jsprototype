@@ -1,0 +1,543 @@
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>一切都是对象 | 深入理解javascript原型和闭包</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        <meta name="author" content="wiliam">
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../函数和对象的关系/index.html" />
+    
+    
+    <link rel="prev" href="../README1.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book"
+        data-level="2"
+        data-chapter-title="一切都是对象"
+        data-filepath="一切都是对象/index.md"
+        data-basepath=".."
+        data-revision="Sun Apr 23 2017 11:16:54 GMT+0800 (中国标准时间)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+                
+                <li>
+                    <a href="http://wiliam.top" target="blank" class="custom-link">个人主页</a>
+                </li>
+            
+            
+
+            
+            <li class="divider"></li>
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        介绍
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="README1.html">
+            
+                
+                    <a href="../README1.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        说明
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="2" data-path="一切都是对象/index.html">
+            
+                
+                    <a href="../一切都是对象/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        一切都是对象
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="函数和对象的关系/index.html">
+            
+                
+                    <a href="../函数和对象的关系/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        函数和对象的关系
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="prototype原型/index.html">
+            
+                
+                    <a href="../prototype原型/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        prototype原型
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="隐式原型/index.html">
+            
+                
+                    <a href="../隐式原型/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        隐式原型
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="instanceof/index.html">
+            
+                
+                    <a href="../instanceof/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        instanceof
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="继承/index.html">
+            
+                
+                    <a href="../继承/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        继承
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="原型的灵活性/index.html">
+            
+                
+                    <a href="../原型的灵活性/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                        原型的灵活性
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9" >
+            
+            <span><b>9.</b> 简述执行上下文</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1" data-path="简述执行上下文/index.html">
+            
+                
+                    <a href="../简述执行上下文/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.1.</b>
+                        
+                        简述【执行上下文】上
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.2" data-path="简述执行上下文/index1.html">
+            
+                
+                    <a href="../简述执行上下文/index1.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.2.</b>
+                        
+                        简述【执行上下文】下
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="10" >
+            
+            <span><b>10.</b> this</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="10.1" data-path="this/index.html">
+            
+                
+                    <a href="../this/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>10.1.</b>
+                        
+                        this
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="10.2" data-path="this/index1.html">
+            
+                
+                    <a href="../this/index1.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>10.2.</b>
+                        
+                        补this
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="11" data-path="执行上下文栈/index.html">
+            
+                
+                    <a href="../执行上下文栈/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.</b>
+                        
+                        执行上下文栈
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12" data-path="简介作用域/index.html">
+            
+                
+                    <a href="../简介作用域/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.</b>
+                        
+                        简介作用域
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13" data-path="作用域和上下文环境/index.html">
+            
+                
+                    <a href="../作用域和上下文环境/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.</b>
+                        
+                        作用域和上下文环境
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14" data-path="上下文环境和作用域的关系/index.html">
+            
+                
+                    <a href="../上下文环境和作用域的关系/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.</b>
+                        
+                        上下文环境和作用域的关系
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15" data-path="从自由变量到作用域链/index.html">
+            
+                
+                    <a href="../从自由变量到作用域链/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>15.</b>
+                        
+                        从自由变量到作用域链
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16" data-path="闭包/index.html">
+            
+                
+                    <a href="../闭包/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.</b>
+                        
+                        闭包
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="17" data-path="完结/index.html">
+            
+                
+                    <a href="../完结/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>17.</b>
+                        
+                        完结
+                    </a>
+            
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    本书使用 GitBook 发布
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >深入理解javascript原型和闭包</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="&#x4E00;&#x5207;&#x90FD;&#x662F;&#x5BF9;&#x8C61;">&#x4E00;&#x5207;&#x90FD;&#x662F;&#x5BF9;&#x8C61;</h1>
+<p>&#x201C;<strong>&#x4E00;&#x5207;&#x90FD;&#x662F;&#x5BF9;&#x8C61;</strong>&#x201D;&#x8FD9;&#x53E5;&#x8BDD;&#x7684;&#x91CD;&#x70B9;&#x5728;&#x4E8E;&#x5982;&#x4F55;&#x53BB;&#x7406;&#x89E3;&#x201C;<strong>&#x5BF9;&#x8C61;</strong>&#x201D;&#x8FD9;&#x4E2A;&#x6982;&#x5FF5;&#x3002;</p>
+<p>&#x2014;&#x2014;&#x5F53;&#x7136;&#xFF0C;&#x4E5F;&#x4E0D;&#x662F;&#x6240;&#x6709;&#x7684;&#x90FD;&#x662F;&#x5BF9;&#x8C61;&#xFF0C;&#x503C;&#x7C7B;&#x578B;&#x5C31;&#x4E0D;&#x662F;&#x5BF9;&#x8C61;&#x3002;</p>
+<p>&#x9996;&#x5148;&#x54B1;&#x4EEC;&#x8FD8;&#x662F;&#x5148;&#x770B;&#x770B;javascript&#x4E2D;&#x4E00;&#x4E2A;&#x5E38;&#x7528;&#x7684;&#x51FD;&#x6570;&#x2014;&#x2014;typeof()&#x3002;typeof&#x5E94;&#x8BE5;&#x7B97;&#x662F;&#x54B1;&#x4EEC;&#x7684;&#x8001;&#x670B;&#x53CB;&#xFF0C;&#x8FD8;&#x6709;&#x8C01;&#x6CA1;&#x7528;&#x8FC7;&#x5B83;&#xFF1F;</p>
+<p>typeof&#x51FD;&#x6570;&#x8F93;&#x51FA;&#x7684;&#x4E00;&#x5171;&#x6709;&#x51E0;&#x79CD;&#x7C7B;&#x578B;&#xFF0C;&#x5728;&#x6B64;&#x5217;&#x51FA;&#xFF1A;</p>
+<pre><code>function show(x) {
+
+    console.log(typeof(x));    // undefined
+    console.log(typeof(10));   // number
+    console.log(typeof(&apos;abc&apos;)); // string
+    console.log(typeof(true));  // boolean
+
+    console.log(typeof(function () { }));  //function
+
+    console.log(typeof([1, &apos;a&apos;, true]));  //object
+    console.log(typeof ({ a: 10, b: 20 }));  //object
+    console.log(typeof (null));  //object
+    console.log(typeof (new Number(10)));  //object
+}
+show();
+</code></pre><p>&#x4EE5;&#x4E0A;&#x4EE3;&#x7801;&#x5217;&#x51FA;&#x4E86;typeof&#x8F93;&#x51FA;&#x7684;&#x96C6;&#x4E2D;&#x7C7B;&#x578B;&#x6807;&#x8BC6;&#xFF0C;&#x5176;&#x4E2D;&#x4E0A;&#x9762;&#x7684;&#x56DB;&#x79CD;&#xFF08;undefined, number, string, boolean&#xFF09;&#x5C5E;&#x4E8E;&#x7B80;&#x5355;&#x7684;<strong>&#x503C;&#x7C7B;&#x578B;</strong>&#xFF0C;&#x4E0D;&#x662F;&#x5BF9;&#x8C61;&#x3002;&#x5269;&#x4E0B;&#x7684;&#x51E0;&#x79CD;&#x60C5;&#x51B5;&#x2014;&#x2014;&#x51FD;&#x6570;&#x3001;&#x6570;&#x7EC4;&#x3001;&#x5BF9;&#x8C61;&#x3001;null&#x3001;new Number(10)&#x90FD;&#x662F;&#x5BF9;&#x8C61;&#x3002;&#x4ED6;&#x4EEC;&#x90FD;&#x662F;<strong>&#x5F15;&#x7528;&#x7C7B;&#x578B;</strong>&#x3002;</p>
+<p>&#x5224;&#x65AD;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x662F;&#x4E0D;&#x662F;&#x5BF9;&#x8C61;&#x975E;&#x5E38;&#x7B80;&#x5355;&#x3002;&#x503C;&#x7C7B;&#x578B;&#x7684;&#x7C7B;&#x578B;&#x5224;&#x65AD;&#x7528;typeof&#xFF0C;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x7684;&#x7C7B;&#x578B;&#x5224;&#x65AD;&#x7528;instanceof&#x3002;</p>
+<pre><code>var fn = function () { };
+console.log(fn instanceof Object);  // true
+</code></pre><p>&#x597D;&#x4E86;&#xFF0C;&#x4E0A;&#x9762;&#x8BF4;&#x4E86;&#x534A;&#x5929;&#x5BF9;&#x8C61;&#xFF0C;&#x5404;&#x4F4D;&#x53EF;&#x80FD;&#x4E5F;&#x7ECF;&#x5E38;&#x5728;&#x5DE5;&#x4F5C;&#x4E2D;&#x5E94;&#x5BF9;&#x5BF9;&#x8C61;&#xFF0C;&#x5728;&#x751F;&#x6D3B;&#x4E2D;&#x8FD8;&#x5F97;&#x5E94;&#x5BF9;&#x6D3B;&#x751F;&#x751F;&#x7684;&#x5BF9;&#x8C61;&#x3002;&#x6709;&#x4E9B;&#x4E2A;&#x5FC3;&#x7406;&#x4E0D;&#x6B63;&#x5E38;&#x6216;&#x8005;&#x7231;&#x5F00;&#x73A9;&#x7B11;&#x7684;&#x5355;&#x8EAB;&#x4EBA;&#x58EB;&#xFF0C;&#x8FD8;&#x5BF9;&#x4E8E;&#x7CFB;&#x7EDF;&#x63D0;&#x793A;&#x7684;&#x201C;&#x627E;&#x4E0D;&#x5230;&#x5BF9;&#x8C61;&#x201D;&#x803F;&#x803F;&#x4E8E;&#x6000;&#x3002;&#x90A3;&#x4E48;&#x5728;javascript&#x4E2D;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x5230;&#x5E95;&#x8BE5;&#x5982;&#x4F55;&#x5B9A;&#x4E49;&#x5462;&#xFF1F;</p>
+<p><strong>&#x5BF9;&#x8C61;&#x2014;&#x2014;&#x82E5;&#x5E72;&#x5C5E;&#x6027;&#x7684;&#x96C6;&#x5408;&#x3002;</strong></p>
+<p>java&#x6216;&#x8005;C#&#x4E2D;&#x7684;&#x5BF9;&#x8C61;&#x90FD;&#x662F;new&#x4E00;&#x4E2A;class&#x51FA;&#x6765;&#x7684;&#xFF0C;&#x800C;&#x4E14;&#x91CC;&#x9762;&#x6709;&#x5B57;&#x6BB5;&#x3001;&#x5C5E;&#x6027;&#x3001;&#x65B9;&#x6CD5;&#xFF0C;&#x89C4;&#x5B9A;&#x7684;&#x975E;&#x5E38;&#x4E25;&#x683C;&#x3002;&#x4F46;&#x662F;javascript&#x5C31;&#x6BD4;&#x8F83;&#x968F;&#x610F;&#x4E86;&#x2014;&#x2014;&#x6570;&#x7EC4;&#x662F;&#x5BF9;&#x8C61;&#xFF0C;&#x51FD;&#x6570;&#x662F;&#x5BF9;&#x8C61;&#xFF0C;&#x5BF9;&#x8C61;&#x8FD8;&#x662F;&#x5BF9;&#x8C61;&#x3002;&#x5BF9;&#x8C61;&#x91CC;&#x9762;&#x7684;&#x4E00;&#x5207;&#x90FD;&#x662F;&#x5C5E;&#x6027;&#xFF0C;&#x53EA;&#x6709;&#x5C5E;&#x6027;&#xFF0C;&#x6CA1;&#x6709;&#x65B9;&#x6CD5;&#x3002;&#x90A3;&#x4E48;&#x8FD9;&#x6837;&#x65B9;&#x6CD5;&#x5982;&#x4F55;&#x8868;&#x793A;&#x5462;&#xFF1F;&#x2014;&#x2014;&#x65B9;&#x6CD5;&#x4E5F;&#x662F;&#x4E00;&#x79CD;&#x5C5E;&#x6027;&#x3002;&#x56E0;&#x4E3A;&#x5B83;&#x7684;&#x5C5E;&#x6027;&#x8868;&#x793A;&#x4E3A;<strong>&#x952E;&#x503C;&#x5BF9;</strong>&#x7684;&#x5F62;&#x5F0F;&#x3002;</p>
+<p>&#x800C;&#x4E14;&#xFF0C;&#x66F4;&#x52A0;&#x597D;&#x73A9;&#x7684;&#x4E8B;&#xFF0C;javascript&#x4E2D;&#x7684;&#x5BF9;&#x8C61;&#x53EF;&#x4EE5;&#x4EFB;&#x610F;&#x7684;&#x6269;&#x5C55;&#x5C5E;&#x6027;&#xFF0C;&#x6CA1;&#x6709;class&#x7684;&#x7EA6;&#x675F;&#x3002;&#x8FD9;&#x4E2A;&#x5927;&#x5BB6;&#x5E94;&#x8BE5;&#x90FD;&#x77E5;&#x9053;&#xFF0C;&#x5C31;&#x4E0D;&#x518D;&#x5F3A;&#x8C03;&#x4E86;&#x3002;</p>
+<p>&#x5148;&#x8BF4;&#x4E2A;&#x6700;&#x5E38;&#x89C1;&#x7684;&#x4F8B;&#x5B50;&#xFF1A;</p>
+<p><img src="img/11.png" alt="PNG"></p>
+<p>&#x4EE5;&#x4E0A;&#x4EE3;&#x7801;&#x4E2D;&#xFF0C;obj&#x662F;&#x4E00;&#x4E2A;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x5176;&#x4E2D;a&#x3001;b&#x3001;c&#x5C31;&#x662F;&#x5B83;&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x800C;&#x4E14;&#x5728;c&#x7684;&#x5C5E;&#x6027;&#x503C;&#x8FD8;&#x662F;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x5B83;&#x53C8;&#x6709;name&#x3001;year&#x4E24;&#x4E2A;&#x5C5E;&#x6027;&#x3002;</p>
+<p>&#x8FD9;&#x4E2A;&#x53EF;&#x80FD;&#x6BD4;&#x8F83;&#x597D;&#x7406;&#x89E3;&#xFF0C;&#x90A3;&#x4E48;&#x51FD;&#x6570;&#x548C;&#x6570;&#x7EC4;&#x4E5F;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;&#x5417;&#xFF1F;&#x2014;&#x2014;&#x5F53;&#x7136;&#x4E0D;&#x884C;&#xFF0C;&#x4F46;&#x662F;&#x5B83;&#x53EF;&#x4EE5;&#x7528;&#x53E6;&#x4E00;&#x79CD;&#x5F62;&#x5F0F;&#xFF0C;&#x603B;&#x4E4B;&#x51FD;&#x6570;/&#x6570;&#x7EC4;&#x4E4B;&#x6D41;&#xFF0C;&#x53EA;&#x8981;&#x662F;&#x5BF9;&#x8C61;&#xFF0C;&#x5B83;&#x5C31;&#x662F;&#x5C5E;&#x6027;&#x7684;&#x96C6;&#x5408;&#x3002;</p>
+<p>&#x4EE5;&#x51FD;&#x6570;&#x4E3A;&#x4F8B;&#x5B50;</p>
+<pre><code>var fn = function () {
+    alert(100);
+};
+fn.a = 10;
+fn.b = function () {
+    alert(123);
+};
+fn.c = {
+    name: &quot;&#x738B;&#x798F;&#x670B;&quot;,
+    year: 1988
+};
+</code></pre><p>&#x4E0A;&#x6BB5;&#x4EE3;&#x7801;&#x4E2D;&#xFF0C;&#x51FD;&#x6570;&#x5C31;&#x4F5C;&#x4E3A;&#x5BF9;&#x8C61;&#x88AB;&#x8D4B;&#x503C;&#x4E86;a&#x3001;b&#x3001;c&#x4E09;&#x4E2A;&#x5C5E;&#x6027;&#x2014;&#x2014;&#x5F88;&#x660E;&#x663E;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x5C5E;&#x6027;&#x7684;&#x96C6;&#x5408;&#x5417;&#x3002;</p>
+<p>&#x4F60;&#x95EE;&#xFF1A;&#x8FD9;&#x4E2A;&#x6709;&#x7528;&#x5417;&#xFF1F;</p>
+<p>&#x56DE;&#x7B54;&#xFF1A;&#x53EF;&#x4EE5;&#x770B;&#x770B;jQuery&#x6E90;&#x7801;&#xFF01;</p>
+<p>&#x5728;jQuery&#x6E90;&#x7801;&#x4E2D;&#xFF0C;&#x201C;jQuery&#x201D;&#x6216;&#x8005;&#x201C;$&#x201D;&#xFF0C;&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#x5176;&#x5B9E;&#x662F;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;&#x4E0D;&#x4FE1;&#x4F60;&#x53EF;&#x4EE5;&#x53EB;&#x54B1;&#x4EEC;&#x7684;&#x8001;&#x670B;&#x53CB;typeof&#x9A8C;&#x8BC1;&#x4E00;&#x4E0B;&#x3002;</p>
+<pre><code>console.log(typeof ($));  // function
+console.log($.trim(&quot; ABC &quot;));
+</code></pre><p>&#x9A8C;&#x660E;&#x6B63;&#x8EAB;&#xFF01;&#x7684;&#x786E;&#x662F;&#x4E2A;&#x51FD;&#x6570;&#x3002;&#x90A3;&#x4E48;&#x54B1;&#x4EEC;&#x5E38;&#x7528;&#x7684; $.trim() &#x4E5F;&#x662F;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;&#x7ECF;&#x5E38;&#x7528;&#xFF0C;&#x5C31;&#x4E0D;&#x7528;&#x9A8C;&#x4E86;&#x5427;&#xFF01;</p>
+<p>&#x5F88;&#x660E;&#x663E;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x5728;$&#x6216;&#x8005;jQuery&#x51FD;&#x6570;&#x4E0A;&#x52A0;&#x4E86;&#x4E00;&#x4E2A;trim&#x5C5E;&#x6027;&#xFF0C;&#x5C5E;&#x6027;&#x503C;&#x662F;&#x51FD;&#x6570;&#xFF0C;&#x4F5C;&#x7528;&#x662F;&#x622A;&#x53D6;&#x524D;&#x540E;&#x7A7A;&#x683C;&#x3002;</p>
+<p>javascript&#x4E0E;java/C#&#x76F8;&#x6BD4;&#xFF0C;&#x9996;&#x5148;&#x6700;&#x9700;&#x8981;&#x89E3;&#x91CA;&#x7684;&#x5C31;&#x662F;&#x5F31;&#x7C7B;&#x578B;&#xFF0C;&#x56E0;&#x4E3A;&#x5F31;&#x7C7B;&#x578B;&#x662F;&#x6700;&#x57FA;&#x672C;&#x7684;&#x7528;&#x6CD5;&#xFF0C;&#x800C;&#x4E14;&#x6700;&#x5E38;&#x7528;&#xFF0C;&#x5C31;&#x4E0D;&#x6253;&#x7B97;&#x505A;&#x4E00;&#x8282;&#x6765;&#x8BB2;&#x3002;</p>
+<p>&#x5176;&#x6B21;&#x8981;&#x89E3;&#x91CA;&#x7684;&#x5C31;&#x662F;&#x672C;&#x6587;&#x7684;&#x5185;&#x5BB9;&#x2014;&#x2014;<em>&#x4E00;&#x5207;&#xFF08;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#xFF09;&#x90FD;&#x662F;&#x5BF9;&#x8C61;&#xFF0C;&#x5BF9;&#x8C61;&#x662F;<strong>&#x5C5E;&#x6027;&#x7684;&#x96C6;&#x5408;</strong></em>&#x3002;&#x6700;&#x9700;&#x8981;&#x4E86;&#x89E3;&#x7684;&#x5C31;&#x662F;&#x5BF9;&#x8C61;&#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x548C;java/C#&#x5B8C;&#x5168;&#x4E0D;&#x4E00;&#x6837;&#x3002;&#x6240;&#x4EE5;&#xFF0C;&#x5207;&#x8BB0;&#x5207;&#x8BB0;&#xFF01;</p>
+<p>&#x6700;&#x540E;&#xFF0C;&#x6709;&#x4E2A;&#x7591;&#x95EE;&#x3002;&#x5728;typeof&#x7684;&#x8F93;&#x51FA;&#x7C7B;&#x578B;&#x4E2D;&#xFF0C;function&#x548C;object&#x90FD;&#x662F;&#x5BF9;&#x8C61;&#xFF0C;&#x4E3A;&#x4F55;&#x5374;&#x8981;&#x8F93;&#x51FA;&#x4E24;&#x79CD;&#x7B54;&#x6848;&#x5462;&#xFF1F;&#x90FD;&#x53EB;&#x505A;object&#x4E0D;&#x884C;&#x5417;&#xFF1F;&#x2014;&#x2014;&#x5F53;&#x7136;&#x4E0D;&#x884C;&#x3002;</p>
+<p>&#x5177;&#x4F53;&#x539F;&#x56E0;&#xFF0C;&#x4E14;&#x542C;&#x4E0B;&#x56DE;&#x5206;&#x89E3;&#xFF01;</p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../README1.html" class="navigation navigation-prev " aria-label="Previous page: 说明"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../函数和对象的关系/index.html" class="navigation navigation-next " aria-label="Next page: 函数和对象的关系"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"livereload":{}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>
